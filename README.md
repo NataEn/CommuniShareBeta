@@ -12,6 +12,7 @@ A communal equipment sharing application
 2. DataBases;
    - MySQL
 3. Front-End Libraries:
+   - Bootstrap, with Flaty layout (https://bootswatch.com/)
    - ReactStrap (12-block grid layout)
 4. Back-End Libraries:
    - DjangoRestFramework (web api)

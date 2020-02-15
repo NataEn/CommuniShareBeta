@@ -4,7 +4,7 @@
   "description": "frontend communal equipment sharing app",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development ./communishare/frontend/src/index.js --output ./communishare/frontend/static/frontend/main.js",
+    "dev": "webpack --mode development --watch ./communishare/frontend/src/index.js --output ./communishare/frontend/static/frontend/main.js",
     "build": "webpack --mode production ./communishare/frontend/src/index.js --output ./communishare/frontend/static/frontend/main.js"
 
   },
