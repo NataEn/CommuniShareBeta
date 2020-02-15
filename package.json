@@ -1,0 +1,23 @@
+{
+  "name": "communishare",
+  "version": "1.0.0",
+  "description": "frontend communal equipment sharing app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NataEn/CommuniShare.git"
+  },
+  "author": "Natalie Enkin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NataEn/CommuniShare/issues"
+  },
+  "homepage": "https://github.com/NataEn/CommuniShare#readme",
+  "devDependencies": {
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  }
+}
