@@ -4,7 +4,9 @@
   "description": "frontend communal equipment sharing app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode development ./communishare/frontend/src/index.js --output ./communishare/frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./communishare/frontend/src/index.js --output ./communishare/frontend/static/frontend/main.js"
+
   },
   "repository": {
     "type": "git",
