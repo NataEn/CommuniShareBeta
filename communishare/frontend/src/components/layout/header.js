@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-export default class Header extends Component{
+export default class Header extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,13 +31,18 @@ export default class Header extends Component{
                                 <a className="dropdown-item" href="#">Something else here</a>
                             </div>
                         </li>
+
                         <li className="nav-item">
-                            <a className="nav-link disabled" href="#" tabIndex="-1"
-                               aria-disabled="true">Disabled</a>
+                            <a className="nav-link" href="/" tabIndex="-1"
+                               aria-disabled="true">Logout</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/accounts/login" tabIndex="-1"
+                               aria-disabled="true">Login</a>
                         </li>
                     </ul>
                 </div>
             </nav>
-    )
+        )
     }
-    }
+}

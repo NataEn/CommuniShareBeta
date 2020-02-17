@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Communi_User,Item
+from .models import Item
 
 # equipment serializers
 class EquipmentSerializer(serializers.ModelSerializer):
