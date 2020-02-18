@@ -11,9 +11,12 @@ CONDITION_CHOICES = [
 class Item(models.Model):
     name = models.CharField(max_length=100)
     condition = models.CharField(max_length=20, choices=CONDITION_CHOICES)
-    # image = models.ImageField(upload_to='uploads/%Y/%m/%d/', blank=True)
+    image = models.ImageField(upload_to='uploads/img', blank=True)
     description = models.CharField(max_length=500, blank=True)
     availability = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.name
+
+# class ItemImages(models.Model):
+#     name=

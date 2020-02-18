@@ -8,7 +8,9 @@
 <p>Detail Item</p>
 {% if item %}
     <p>name: {{ item.name }}</p>
+     <img src="{{ item.image.url}}" alt="a cat photo"/>
     <p>description: {{ item.description }}</p>
+     <p>availability: {% if item.availability  %} <span>Available</span>{% else %}<span>Not available</span>{% endif %}</p>
 
 {% else %}
     <p>Didn't find the Item...</p>

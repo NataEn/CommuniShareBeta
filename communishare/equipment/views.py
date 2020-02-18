@@ -20,10 +20,11 @@ class ItemDetailView(generic.DetailView):
 
 def item_create(request):
     if request.method == 'POST':
-        form = ItemForm(request.POST)
+        form = ItemForm(request.POST,files=request.FILES)
         if form.is_valid():
             item = Item(name=form.cleaned_data['name'], description=form.cleaned_data['description'],
-                        availability=form.cleaned_data['availability'], condition=form.cleaned_data['condition'])
+                        availability=form.cleaned_data['availability'], condition=form.cleaned_data['condition'],
+                        image=form.cleaned_data['image'])
             item.save()
             messages.success(request, 'Thank you for sharing an item %s' % form.cleaned_data['name'])
             return HttpResponseRedirect(reverse('equipment:item_list'))
