@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_extensions',
     'rest_framework_simplejwt',
 
     # my apps:
@@ -84,7 +85,10 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': "",
         'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'PORT': '3306',
+        # 'TEST': {
+        #     'NAME': 'test_communishare',
+        # },
     },
 }
 
@@ -135,5 +139,5 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
-MEDIA_ROOT = (BASE_DIR)
-MEDIA_URL = '/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/uploads/'
