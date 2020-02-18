@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Detail Item</p>
+{% if item %}
+    <p>name: {{ item.name }}</p>
+    <p>description: {{ item.description }}</p>
+
+{% else %}
+    <p>Didn't find the Item...</p>
+{% endif %}
+</body>
+</html>

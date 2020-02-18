@@ -10,10 +10,19 @@ Class-base
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+
+from equipment.api import EquipmentViewSet, ShareEquipmentViewSet
+
+equipment = ShareEquipmentViewSet.as_view({
+    'get': 'retrieve',
+    "post": 'add'
+})
 
 urlpatterns = [
-
     path("", include('frontend.urls')),
+    # path('api/share-item/', equipment),
+    # path("api/items", EquipmentViewSet),
     path("equipment/", include('equipment.urls')),
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
