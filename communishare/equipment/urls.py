@@ -1,12 +1,12 @@
 from rest_framework import routers
-from .api import EquipmentViewSet, ShareEquipmentViewSet
+# from .api import EquipmentViewSet, ShareEquipmentViewSet
 from django.urls import path
 from . import views
 app_name = 'equipment'
 
 router = routers.DefaultRouter()
-router.register(r'items', EquipmentViewSet, basename='items')
-router.register(r'share-item', ShareEquipmentViewSet, basename="share")
+# router.register(r'items', EquipmentViewSet, basename='items')
+# router.register(r'share-item', ShareEquipmentViewSet, basename="share")
 
 urlpatterns = [
     path('', views.ItemListView.as_view(), name='item_list'),

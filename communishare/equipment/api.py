@@ -1,36 +1,35 @@
-from .models import Item
-from rest_framework import viewsets, permissions
-from rest_framework import status
-from .serializers import EquipmentSerializer, ItemSerializer
-from django.http import HttpResponse, JsonResponse
-from rest_framework.parsers import JSONParser
-from rest_framework.response import Response
+import json
+from django.utils import timezone
+from .models import Item, ItemImage
+from django.http import JsonResponse
+from django.core.files.uploadedfile import UploadedFile
+import logging
 
 
-
-# Equipment viewset:
-class EquipmentViewSet(viewsets.ViewSet):
-    def retrieve(self, request):
-        items = Item.objects.all()
-        serializer = EquipmentSerializer(items, many=True)
-        return JsonResponse(serializer.data, safe=False)
-
-class ShareEquipmentViewSet(viewsets.ViewSet):
-    def retrieve(self, request):
-        item = Item.objects.last()
-        serializer = ItemSerializer(item, many=True)
-        return JsonResponse(serializer.data, safe=False)
-
-    def add(self, request):
-        data = JSONParser().parse(request)
-        serializer = ItemSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+def yaniv_api(request):
+    print(json.loads(request.body))
+    items = Item.objects.all()
+    return JsonResponse([
+        {
+            'name': item.name,
+            'condition': item.condition,
+            'description': item.description,
+            'images': [i.full_url for i in item.images.all()],
+        } for item in items
+    ], safe=False)
 
 
-
-
-
-
+def post(request):
+    payload = json.loads(request.body)
+    logging.warning(payload)
+    CONDITION_CHOICES = ('New', 'Like new', 'Used', 'Functional')
+    '''
+    payload should be in the form of:
+    {'name':name, 'condition':one of CONDITION_CHOICES,'description':'free text','image':'img path'}
+    this will be imported to creating the items
+    '''
+    dt = timezone.now
+    item = Item(created_at=dt, name='chair', condition='New', description='brown')
+    item.save()
+    image = ItemImage(item=item, img=UploadedFile(open('C:/Users/Natalie/Desktop/images/dog1.jpg', 'rb')))
+    image.save()
