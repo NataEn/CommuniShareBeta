@@ -3,7 +3,6 @@ from .models import User
 
 
 class UserListSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
         fields = ('id','is_superuser','username','first_name', 'last_name','image')

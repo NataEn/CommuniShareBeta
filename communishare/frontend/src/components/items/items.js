@@ -1,15 +1,10 @@
 import React, {Component} from 'react'
+import {get_all_items, get_current_user} from '../api_calls'
 
 export default class Items extends Component {
     componentDidMount() {
-        fetch('http://localhost:8000/api/all_items/')
-            .then((response) => {
-                return response.json();
-            })
-            .then((myJson) => {
-                console.log(myJson);
-                console.log('myJson');
-            });
+        get_all_items()
+        get_current_user()
     }
 
     render() {
