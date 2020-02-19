@@ -3,8 +3,8 @@ import React, {Component} from 'react'
 export default class Header extends Component {
     render() {
         return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <a className="navbar-brand" href="#">CommuniShare</a>
+            <nav className="navbar navbar-expand-md navbar-light bg-light">
+                <a className="navbar-brand" href="#"><img src="./static/frontend/images/logo.png" className="logo"/></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -17,18 +17,21 @@ export default class Header extends Component {
                             <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Link</a>
+                            <a className="nav-link" href="#">Share Item</a>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
+                                Categories
                             </a>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a className="dropdown-item" href="#">Action</a>
-                                <a className="dropdown-item" href="#">Another action</a>
+                                <a className="dropdown-item" href="#">Family and Kids</a>
+                                <a className="dropdown-item" href="#">Home and Garden</a>
+                                 <a className="dropdown-item" href="#">Home and Interior</a>
+                                <a className="dropdown-item" href="#">Electronics</a>
+                                 <a className="dropdown-item" href="#">Motors</a>
                                 <div className="dropdown-divider"></div>
-                                <a className="dropdown-item" href="#">Something else here</a>
+                                <a className="dropdown-item" href="#">My Last Search</a>
                             </div>
                         </li>
 

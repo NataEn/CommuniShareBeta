@@ -1,4 +1,6 @@
 import json
+
+from django.core.handlers.wsgi import WSGIRequest
 from django.utils import timezone
 from .models import Item, ItemImage
 from django.http import JsonResponse
@@ -6,8 +8,11 @@ from django.core.files.uploadedfile import UploadedFile
 import logging
 
 
-def yaniv_api(request):
-    print(json.loads(request.body))
+def base_api(request: WSGIRequest):
+    try:
+        print(json.loads(request.body))
+    except Exception as ex:
+        print(ex)
     items = Item.objects.all()
     return JsonResponse([
         {

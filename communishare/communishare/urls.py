@@ -15,18 +15,11 @@ from rest_framework import routers
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
-from equipment.api import yaniv_api
-# from equipment.api import EquipmentViewSet, ShareEquipmentViewSet, yaniv_api
-#
-# equipment = ShareEquipmentViewSet.as_view({
-#     'get': 'retrieve',
-#     "post": 'add'
-# })
+from equipment.api import base_api
 
 urlpatterns = [
     path("", include('frontend.urls')),
-    path("api/", csrf_exempt(yaniv_api)),
+    path("api/", csrf_exempt(base_api)),
     # path('api/share-item/', equipment),
     # path("api/items", EquipmentViewSet),
     path("equipment/", include('equipment.urls')),
