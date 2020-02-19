@@ -1,5 +1,5 @@
 // const proxyurl = "https://cors-anywhere.herokuapp.com/";
-const allItems = 'localhost:8000/api/'
+const allItems = 'localhost:8000/api/all_items/'
 // in the brouser: http://localhost:8000/
 fetch(allItems)
     .then((response) => {

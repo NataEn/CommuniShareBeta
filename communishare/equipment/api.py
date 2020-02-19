@@ -8,7 +8,7 @@ from django.core.files.uploadedfile import UploadedFile
 import logging
 
 
-def base_api(request: WSGIRequest):
+def get_items(request: WSGIRequest):
     try:
         print(json.loads(request.body))
     except Exception as ex:
@@ -24,17 +24,16 @@ def base_api(request: WSGIRequest):
     ], safe=False)
 
 
-def post(request):
-    payload = json.loads(request.body)
-    logging.warning(payload)
+def post_item(request : WSGIRequest):
     CONDITION_CHOICES = ('New', 'Like new', 'Used', 'Functional')
     '''
-    payload should be in the form of:
-    {'name':name, 'condition':one of CONDITION_CHOICES,'description':'free text','image':'img path'}
-    this will be imported to creating the items
+   add try and catch, validation and so on...
     '''
-    dt = timezone.now
-    item = Item(created_at=dt, name='chair', condition='New', description='brown')
+    uploadedimage = request.FILES['images']
+    print(request.FILES['images'].size)
+    dt = timezone.now()
+    item = Item(created_at=dt, name=request.POST['name'], condition=request.POST['condition'], description=request.POST['description'])
     item.save()
-    image = ItemImage(item=item, img=UploadedFile(open('C:/Users/Natalie/Desktop/images/dog1.jpg', 'rb')))
+    image = ItemImage(item=item, img=uploadedimage)
     image.save()
+    return JsonResponse('ok', safe=False)

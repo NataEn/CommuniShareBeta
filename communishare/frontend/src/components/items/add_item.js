@@ -9,7 +9,8 @@ export default class AddItem extends Component {
             category: {value: '', message: ''},
             description: {value: '', message: ''},
             availability: {value: true, message: ''},
-            image: {value: '', message: ''}
+            images: {value: {}, message: ''},
+
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -18,7 +19,7 @@ export default class AddItem extends Component {
 
     handleChange(event) {
         if (event.target.name === 'name') {
-            if (event.target.value.length >50 || event.target.value.length <3) {
+            if (event.target.value.length > 50 || event.target.value.length < 3) {
                 console.log(event.target.value.length);
                 this.setState({'name': {value: "", message: 'please enter a  name with 3 to 50 letters'}});
                 return;
@@ -38,28 +39,68 @@ export default class AddItem extends Component {
                 this.setState({'category': {value: "", message: 'please choose a category'}});
                 return;
             }
-        } else this.setState({[event.target.name]: {value: event.target.value, message: ""}});
+
+        }
+        if(event.target.name === 'images'){
+            console.log(event.target.files[0])
+            this.setState({'images': {value: [this.state.images.value,...event.target.files], message: ''}});
+            return;
+        }
+        else this.setState({[event.target.name]: {value: event.target.value, message: ""}});
 
         this.setState({[event.target.name]: {value: event.target.value, message: ""}})
     }
 
+    validateForm() {
+        let valid = Object.keys(this.state).filter(key => this.state[key].message.length > 0)
+        return valid.length === 0
+    }
+
     handleSubmit(event) {
         event.preventDefault()
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
+        let obj = {}
+        if (this.validateForm()) {
+            let formData = new FormData();
+            formData.append('name',this.state['name'].value);
+            formData.append('condition',this.state['condition'].value)
+            formData.append('description', this.state['description'].value)
+            formData.append('category',this.state['description'].value)
+            formData.append('availability',this.state['availability'].value)
+            formData.append('images', this.state['images'].value)
+            obj.name = this.state['name'].value;
+            obj.condition = this.state['condition'].value;
+            obj.category = this.state['category'].value;
+            obj.description = this.state['description'].value;
+            obj.images =this.state['images'].value;
+            obj.availability = this.state['availability'].value;
+            let jsonObj=JSON.stringify(obj)
+            console.log(formData)
+            console.log(jsonObj)
 
-        this.setState({
-            [name]: value
-        });
 
+            //let myform = document.getElementById("myform");
+            let myform = document.forms.myform;
+            let data = new FormData(myform);
+
+            fetch('/api/share_item/',{
+                method: 'POST',
+                body: data
+            })
+                .then(resp => resp.json())
+                .then(resp => {
+                        console.log(resp);
+                })
+                .catch(error => {
+                    console.error(error);
+                })
+        }
     }
 
     render() {
         const conditions = ['select a condition ...', 'New', 'Like New', 'Used', 'Functional']
         const categories = ['select a category ...', 'Home and Interior', 'Home and Garden', 'Family and Kids', 'Motors']
         return (
-            <form onSubmit={this.handleSubmit} action='#'>
+            <form onSubmit={this.handleSubmit} action='#' id="myform">
                 <div className="form-group">
                     <label>
                         Name of Item
@@ -108,12 +149,12 @@ export default class AddItem extends Component {
                     </label></div>
                 <div className="form-group">
                     <label>Image
-                        <input className="form-control-file" type="file"/>
+                        <input className="form-control-file" type="file" name='images' onChange={this.handleChange}/>
                     </label></div>
                 <div className="form-check">
-                    <input type="checkbox" checked="checked" className="form-check-input" name=''
+                    <input type="checkbox" checked="checked" className="form-check-input" name='availability'
                            onChange={this.handleChange}/>
-                    <label className="form-check-label" htmlFor="exampleCheck1">Available</label>
+                    <label className="form-check-label" >Available</label>
                 </div>
                 <button type="submit" className="btn btn-primary mb-2" value='submit'>Submit</button>
             </form>

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 export default class Items extends Component {
     componentDidMount() {
-        fetch('http://localhost:8000/api/')
+        fetch('http://localhost:8000/api/all_items/')
             .then((response) => {
                 return response.json();
             })
