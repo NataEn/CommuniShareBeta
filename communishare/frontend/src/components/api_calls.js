@@ -12,7 +12,7 @@ export function get_all_items() {
         .then((myJson) => {
             console.log(myJson);
             return myJson
-        }).catch(error => console.log('Authorization failed : ' + error.message));
+        }).catch(error => console.log('all items failed : ' + error.message));
 
 }
 
@@ -24,7 +24,7 @@ export function get_last_10_items() {
         .then((myJson) => {
             console.log(myJson);
             return myJson
-        }).catch(error => console.log('Authorization failed : ' + error.message));
+        }).catch(error => console.log('last 10 failed : ' + error.message));
 }
 
 export function find_items(search_param) {
@@ -43,12 +43,10 @@ export function get_current_user() {
     fetch(current_user)
         .then((response) => {
             console.log(response);
-            return response.json();
-        })
-        .then((myJson) => {
-            console.log('user is', myJson);
-            return myJson
+            response.json().then((myJson) => {
+                console.log('user is', myJson);
+                return myJson
+            });
         }).catch(error => console.log('Authorization failed : ' + error.message));
-
 }
 

@@ -22,7 +22,7 @@ from equipment.api import get_items, post_item, get_last_10_items,get_search_res
 
 urlpatterns = [
     path("", include('frontend.urls')),
-    path("api/all_items/", csrf_exempt(get_items)),
+    path("api/all_items/", get_items),
     path("api/share_item/", csrf_exempt(post_item)),
     path('api/last_10/', get_last_10_items),
     path('api/search/', get_search_results),

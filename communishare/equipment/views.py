@@ -23,6 +23,7 @@ def item_create(request):
         form = ItemForm(request.POST, files=request.FILES)
         if form.is_valid():
             item = Item(name=form.cleaned_data['name'], description=form.cleaned_data['description'],
+                        category=form.cleaned_data['category'],
                         availability=form.cleaned_data['availability'], condition=form.cleaned_data['condition'])
             item.save()
             messages.success(request, 'Thank you for sharing an item %s' % form.cleaned_data['name'])

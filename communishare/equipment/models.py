@@ -21,9 +21,9 @@ class ItemImage(models.Model):
             return f'http://127.0.0.1:8000{self.img.url}'
         return self.img.url
 
-
-class ItemCategory(models.Model):
-    name = models.CharField(max_length=50)
+#
+# class ItemCategory(models.Model):
+#     name = models.CharField(max_length=50)
 
 
 class Item(models.Model):
@@ -32,7 +32,8 @@ class Item(models.Model):
     description = models.CharField(max_length=500, blank=True)
     availability = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
-    category = models.ForeignKey(ItemCategory, on_delete=models.SET_NULL, null=True, related_name='items')
+    # category = models.ForeignKey(ItemCategory, on_delete=models.SET_NULL, null=True, related_name='items')
+    category=models.CharField(max_length=50, default='something')
     tags = TaggableManager()
 
     def __str__(self):
