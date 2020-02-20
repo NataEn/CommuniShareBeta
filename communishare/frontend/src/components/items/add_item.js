@@ -33,10 +33,14 @@ export default class AddItem extends Component {
                     break;
                 }
             case('images1'):
-                debugger;
                 if (event.target.name === 'images') {
                     console.log(event.target.files[0])
-                    this.setState({'images': {value: [this.state.images.value, ...event.target.files[0]], message: ''}});
+                    this.setState({
+                        'images': {
+                            value: [this.state.images.value, ...event.target.files[0]],
+                            message: ''
+                        }
+                    });
                     break;
                 }
             default:
@@ -86,28 +90,33 @@ export default class AddItem extends Component {
     }
 
     handleLoad = (event) => {
-        console.log(event)
+        const reader = new FileReader()
+        const file = event.target.files[0]
+        reader.readAsDataURL(file)
+        let valueObj = {}
+        valueObj.filename = file.name;
+        valueObj['content-type'] = file.type;
+        valueObj.content =reader.result
+        console.log('in handel event', valueObj)
+
+        reader.onload = (event) => {
+            console.log('in onload');
+            this.setState({images: {value: {...valueObj}, message: ''}})
+            console.log(this.state.images.value)
+        }
+
     }
     handleSubmit = (event) => {
         event.preventDefault()
-        let obj = {}
         if (this.validateForm()) {
-            obj.name = this.state['name'].value;
-            obj.condition = this.state['condition'].value;
-            obj.category = this.state['category'].value;
-            obj.description = this.state['description'].value;
-            obj.images = this.state['images'].value;
-            obj.availability = this.state['availability'].value;
-            console.log(obj)
-            let jsonObj = JSON.stringify(obj)
-            // let myForm = document.forms.myForm
-            // let data = new FormData(myForm);
-            // let jsonObj = JSON.stringify(data)
-            console.log(jsonObj)
+
+            debugger;
+            let myForm = document.forms.myForm;
+            let data = new FormData(myForm);
 
             fetch('http://localhost:8000/api/share_item/', {
                 method: 'POST',
-                body: jsonObj,
+                body: data,
                 // headers: {"Content-Type": "multipart/form-data"}
             })
                 .then(resp => resp.json())
@@ -136,7 +145,7 @@ export default class AddItem extends Component {
         const conditions = ['select a condition ...', 'New', 'Like New', 'Used', 'Functional']
         const categories = ['select a category ...', 'Home and Interior', 'Home and Garden', 'Family and Kids', 'Motors']
         return (
-            <form onSubmit={this.handleSubmit} action='#' name="myForm" encType='multipart/form-data'>
+            <form onSubmit={this.handleSubmit} name="myForm">
                 <div className="form-group">
                     <label>
                         Name of Item
@@ -185,7 +194,8 @@ export default class AddItem extends Component {
                     </label></div>
                 <div className="form-group">
                     <label>Image
-                        <input className="form-control-file" type="file" name='images' onChangeCapture={(event)=>{console.log(event.target.files[0])}}/>
+                        <input className="form-control-file" type="file" name='images'
+                               onChangeCapture={this.handleLoad}/>
                     </label></div>
                 <div className="form-check">
                     <input type="checkbox" checked="checked" className="form-check-input" name='availability'

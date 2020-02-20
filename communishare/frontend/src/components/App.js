@@ -9,10 +9,15 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            last_10: get_last_10_items(),
+            last_10: [],
             allItems: get_all_items(),
             user: get_current_user()
-        }
+        };
+
+
+        get_last_10_items().then(resp => {
+            this.setState({'last_10':resp});
+        })
 
     }
 

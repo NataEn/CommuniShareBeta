@@ -17,7 +17,7 @@ export function get_all_items() {
 }
 
 export function get_last_10_items() {
-    fetch(last_10_items)
+    return fetch(last_10_items)
         .then((response) => {
             return response.json();
         })
@@ -25,6 +25,7 @@ export function get_last_10_items() {
             console.log(myJson);
             return myJson
         }).catch(error => console.log('last 10 failed : ' + error.message));
+
 }
 
 export function find_items(search_param) {
