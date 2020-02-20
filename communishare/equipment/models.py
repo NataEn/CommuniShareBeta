@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 CONDITION_CHOICES = [
     ('New', 'New'),
@@ -21,12 +22,18 @@ class ItemImage(models.Model):
         return self.img.url
 
 
+class ItemCategory(models.Model):
+    name = models.CharField(max_length=50)
+
+
 class Item(models.Model):
     name = models.CharField(max_length=100)
     condition = models.CharField(max_length=20, choices=CONDITION_CHOICES)
     description = models.CharField(max_length=500, blank=True)
     availability = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
+    category = models.ForeignKey(ItemCategory, on_delete=models.SET_NULL, null=True, related_name='items')
+    tags = TaggableManager()
 
     def __str__(self):
         return self.name

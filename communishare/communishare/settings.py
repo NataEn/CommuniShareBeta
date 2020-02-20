@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_extensions',
     'rest_framework_simplejwt',
+    'taggit',
 
     # my apps:
     'equipment.apps.EquipmentConfig',
