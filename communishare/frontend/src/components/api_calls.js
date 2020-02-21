@@ -5,7 +5,7 @@ const last_10_items = 'http://localhost:8000/api/last_10/'
 
 // in the brouser: http://localhost:8000/
 export function get_all_items() {
-    fetch(allItems)
+    return fetch(allItems)
         .then((response) => {
             return response.json();
         })
@@ -22,7 +22,6 @@ export function get_last_10_items() {
             return response.json();
         })
         .then((myJson) => {
-            console.log(myJson);
             return myJson
         }).catch(error => console.log('last 10 failed : ' + error.message));
 
@@ -34,20 +33,18 @@ export function find_items(search_param) {
         return response.json();
     })
         .then((myJson) => {
-            console.log(myJson);
+
             return myJson
         }).catch(error => console.log('Failed to find query: ' + error.message));
 
 }
 
 export function get_current_user() {
-    fetch(current_user)
+    return fetch(current_user)
         .then((response) => {
-            console.log(response);
-            response.json().then((myJson) => {
-                console.log('user is', myJson);
-                return myJson
-            });
+            return response.json()
+        }).then((myJson) => {
+            return myJson
         }).catch(error => console.log('Authorization failed : ' + error.message));
 }
 

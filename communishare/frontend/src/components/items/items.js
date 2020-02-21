@@ -1,8 +1,8 @@
-import React, {Component, useState, useEffect} from 'react'
+import React, {useState} from 'react'
 
 
 export default function Items(props) {
-    const {last_10} = props
+    const {last10} = props
     const item_view = (item) => (
         <div className="card col-3" key={item.name}>
             {item.images.length>0 ? item.images.map(img => (<img src={img} className="card-img-top" alt="Card image cap"/>)) :
@@ -16,6 +16,6 @@ export default function Items(props) {
         </div>
     );
     return (<div className='row'>
-        {last_10.map(item => item_view(item))}
+        {last10.map(item => item_view(item))}
     </div>);
 };
