@@ -14,11 +14,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.conf.urls import url
 
-from accounts.api import signed_user
+from accounts.api import signed_user, signout
 from accounts.views import signup
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from equipment.api import get_items, post_item, get_last_10_items,get_search_results
+from equipment.api import get_items, post_item, get_last_10_items, get_search_results
 
 urlpatterns = [
     path("", include('frontend.urls')),
@@ -33,6 +33,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/current_user', csrf_exempt(signed_user)),
+    path('accounts/signout', csrf_exempt(signout)),
     path('accounts/signup/', signup, name='signup'),
 
 ]

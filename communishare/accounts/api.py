@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from .models import User
 from rest_framework import viewsets
 from .serializers import UserListSerializer, UserSerializer
+from django.contrib.auth import logout
 
 
 class UserListViewSet(viewsets.ModelViewSet):
@@ -16,12 +17,13 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 def signed_user(request):
-    current_user = request.user
-    print(current_user)
-    user = {
-        'name': request.user.username,
-        'email': request.user.email,
-        'id': request.user.pk,
-        'activity': request.user.is_active,
-    }
+    user = {'name': request.user.username}
+    if request.user.username != '':
+        user['email'] = request.user.email
+        user['id'] = request.user.pk
+        user['activity'] = request.user.is_active
     return JsonResponse(user, safe=False)
+
+
+def signout(request):
+    logout(request)
