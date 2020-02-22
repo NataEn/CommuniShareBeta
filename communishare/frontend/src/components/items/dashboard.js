@@ -4,12 +4,12 @@ import AddItem from "./add_item";
 import SeachBar from "./searchBar";
 
 export default function Dashboard(props) {
-    const {last10, user} = props
+    const {last10, user,foundItems, findItems} = props
     return (
         <div>
             <AddItem/>
-            <SeachBar/>
-            <Items last10={last10}/>
+            <SeachBar findItems={findItems}/>
+            <Items foundItems={foundItems}/>
         </div>
     );
 

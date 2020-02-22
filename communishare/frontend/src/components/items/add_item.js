@@ -47,35 +47,6 @@ export default class AddItem extends Component {
                 this.setState({[event.target.name]: {value: event.target.value, message: ""}});
 
         }
-        // if (event.target.name === 'name') {
-        //     if (event.target.value.length > 50 || event.target.value.length < 3) {
-        //         console.log(event.target.value.length);
-        //         this.setState({'name': {value: "", message: 'please enter a  name with 3 to 50 letters'}});
-        //         return;
-        //     }
-        // }
-        // if (event.target.name === 'condition') {
-        //     if (event.target.value === 'select a condition ...') {
-        //         console.log(event.target.value);
-        //         this.setState({'condition': {value: "", message: 'please choose a condition'}});
-        //         return;
-        //     }
-        // }
-        // if (event.target.name === 'category') {
-        //     console.log(event.target.value);
-        //     if (event.target.value === 'select a category ...') {
-        //         console.log(event.target.value);
-        //         this.setState({'category': {value: "", message: 'please choose a category'}});
-        //         return;
-        //     }
-        //
-        // }
-        // if(event.target.name === 'images'){
-        //     console.log(event.target.files[0])
-        //     this.setState({'images': {value: [this.state.images.value,...event.target.files], message: ''}});
-        //     return;
-        // }
-        // else this.setState({[event.target.name]: {value: event.target.value, message: ""}});
 
         this.setState({[event.target.name]: {value: event.target.value, message: ""}})
     }
@@ -109,28 +80,16 @@ export default class AddItem extends Component {
     handleSubmit = (event) => {
         event.preventDefault()
         if (this.validateForm()) {
-
-            debugger;
             let myForm = document.forms.myForm;
             let data = new FormData(myForm);
 
             fetch('http://localhost:8000/api/share_item/', {
                 method: 'POST',
                 body: data,
-                // headers: {"Content-Type": "multipart/form-data"}
             })
                 .then(resp => resp.json())
                 .then(resp => {
                     console.log('in fetch', resp);
-                    // this.setState({
-                    //     name: {value: ''},
-                    //     condition: {value: ''},
-                    //     category: {value: ''},
-                    //     description: {value: ''},
-                    //     availability: {value: true},
-                    //     images: {value: {}},
-                    //
-                    // })
                 })
                 .catch(error => {
                     console.error(error);

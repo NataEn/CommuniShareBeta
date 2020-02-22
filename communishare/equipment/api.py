@@ -48,9 +48,10 @@ def post_item(request: WSGIRequest):
 
 def get_search_results(request: WSGIRequest):
     q = request.GET.get('q')
-    items = Item.objects.all()
-    if q:
-        items = items.filter(
+    if q == 'all':
+        items = Item.objects.all()
+    else:
+        items = Item.objects.filter(
             Q(name__icontains=q) |
             Q(category__name__icontains=q) |
             Q(description__icontains=q) |

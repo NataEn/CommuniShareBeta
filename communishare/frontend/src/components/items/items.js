@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 
 export default function Items(props) {
-    const {last10} = props
+    const {foundItems} = props
     const item_view = (item) => (
         <div className="card col-3" key={item.name}>
             {item.images.length>0 ? item.images.map(img => (<img src={img} className="card-img-top" alt="Card image cap"/>)) :
@@ -16,6 +16,6 @@ export default function Items(props) {
         </div>
     );
     return (<div className='row'>
-        {last10.map(item => item_view(item))}
+        {foundItems.map(item => item_view(item))}
     </div>);
 };
