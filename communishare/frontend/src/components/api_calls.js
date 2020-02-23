@@ -34,7 +34,6 @@ export function find_items(search_param) {
         return response.json();
     })
         .then((myJson) => {
-
             return myJson
         }).catch(error => console.log('Failed to find query: ' + error.message));
 

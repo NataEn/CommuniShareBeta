@@ -1,30 +1,27 @@
-import React from 'react'
+import React, {useEffect, useRef,useState} from 'react'
+import {find_items, get_current_user} from "../api_calls";
 
 export default function SearchBar(props) {
+    const inputEl = useRef(null);
+
+
     function handelSearch(event, criteria) {
         event.preventDefault()
         console.log(criteria)
         switch (criteria) {
             case 'freeSearch':
-                let myForm = document.forms.searchForm;
-                let data = new FormData(myForm);
-                props.findItems(criteria, data)
-                return;
+                props.setSearchValue(inputEl.current.value)
+                props.setCriteria(criteria)
+                break;
             case 'Home and Garden':
-                return;
-            default:
-                props.findItems('all')
-        }
-
-
-    }
+                break;}}
 
     return (<>
 
             <nav className="navbar navbar-expand-md navbar-light bg-light">
                 <form className="form-inline my-2 my-lg-0" name='searchForm'>
                     <input className="form-control mr-sm-2" type="search" placeholder="Search..."
-                           aria-label="Search"/>
+                           aria-label="Search" name='freeInput' ref={inputEl}/>
                     <button className="btn btn-outline-success my-2 my-sm-0" type="submit"
                             onClick={(event) => handelSearch(event, 'freeSearch')}>Search
                     </button>

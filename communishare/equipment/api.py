@@ -51,10 +51,12 @@ def get_search_results(request: WSGIRequest):
     if q == 'all':
         items = Item.objects.all()
     else:
+        print(q)
         items = Item.objects.filter(
             Q(name__icontains=q) |
-            Q(category__name__icontains=q) |
+            Q(category__icontains=q) |
             Q(description__icontains=q) |
-            Q(tags__name=q)
+            Q(condition__icontains=q) |
+            Q(tags__name__icontains=q)
         )
     return JsonResponse(items_dict(items), safe=False)

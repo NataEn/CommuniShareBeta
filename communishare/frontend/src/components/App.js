@@ -7,37 +7,38 @@ import {get_current_user, find_items, logoutUser} from './api_calls'
 
 function App() {
     const [user, setUser] = useState({})
-    const [fountItems, setFountItems] = useState([])
+    const [foundItems, setFoundItems] = useState([])
+    const [searchValue, setSearchValue] = useState("")
+    const [criteria,setCriteria]=useState('all')
     const signout = logoutUser
 
     useEffect(() => {
         find_items('all').then(resp => {
-            setFountItems(resp);
+            setFoundItems(resp)
         });
         get_current_user().then(resp => {
-            setUser(resp);
+            setUser(resp)
         });
     }, [])
-
-    function findItems(criteria, data) {
-        if (criteria === 'all') {
+     useEffect(() => {
+          if (criteria === 'all') {
             find_items("all").then(resp => {
-                setFountItems(resp);
+                setFoundItems(resp)
             });
         } else {
-            find_items(data).then(resp => {
-                setFountItems(resp)
-            })
-        }
+            find_items(searchValue).then(resp => {
+                setFoundItems(resp)
+            })}
+    }, [searchValue])
 
 
-    }
 
     function signoutUser() {
         signout()
-        get_current_user().then(resp => {
-            setUser(resp);
+        let user = get_current_user().then(resp => {
+            setUser(resp)
         });
+
     }
 
 
@@ -45,7 +46,7 @@ function App() {
         <>
             <Header user={user} signout={signoutUser}/>
             <div className="container">
-                <Dashboard user={user} findItems={findItems} foundItems={fountItems}/>
+                <Dashboard user={user} foundItems={foundItems} setCriteria={setCriteria} setSearchValue={setSearchValue}/>
             </div>
 
         </>)
