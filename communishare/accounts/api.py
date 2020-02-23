@@ -27,3 +27,4 @@ def signed_user(request):
 
 def signout(request):
     logout(request)
+    return HttpResponseRedirect('/')

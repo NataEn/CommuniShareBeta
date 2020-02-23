@@ -8,7 +8,7 @@ function Identification(props) {
     } else {
         return (<li className="nav-item">
             <span>{props.user.name}</span>
-            <a className="nav-link d-inline-block" href='#' onClick={() => props.signout()} tabIndex="-1"
+            <a className="nav-link d-inline-block" href='' onClick={() => props.signout()} tabIndex="-1"
                aria-disabled="true">Logout</a>
         </li>)
     }
