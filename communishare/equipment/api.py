@@ -31,10 +31,6 @@ def get_last_10_items(request: WSGIRequest):
 
 
 def post_item(request: WSGIRequest):
-    CONDITION_CHOICES = ('New', 'Like new', 'Used', 'Functional')
-    '''
-   add try and catch, validation and so on...
-    '''
     uploadedimage = request.FILES['images']
     print(request.FILES['images'].size)
     dt = timezone.now()
@@ -50,6 +46,14 @@ def get_search_results(request: WSGIRequest):
     q = request.GET.get('q')
     if q == 'all':
         items = Item.objects.all()
+    elif q == 'name':
+        items = Item.objects.filter(
+            Q(name__icontains=q)
+        )
+    elif q == 'Home and Garden':
+        items = Item.objects.filter(
+            Q(category__icontains=q)
+        )
     else:
         print(q)
         items = Item.objects.filter(

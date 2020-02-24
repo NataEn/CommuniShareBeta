@@ -1,0 +1,1 @@
+export const CATEGORIES=['Home and Garden','Home and Interior','Motors','Family and Kids']

@@ -24,7 +24,8 @@ def item_create(request):
         if form.is_valid():
             item = Item(name=form.cleaned_data['name'], description=form.cleaned_data['description'],
                         category=form.cleaned_data['category'],
-                        availability=form.cleaned_data['availability'], condition=form.cleaned_data['condition'])
+                        availability=form.cleaned_data['availability'], condition=form.cleaned_data['condition'],
+                        tags=form.cleaned_data['tags'], owner=request.user.pk)
             item.save()
             messages.success(request, 'Thank you for sharing an item %s' % form.cleaned_data['name'])
             return HttpResponseRedirect(reverse('equipment:item_list'))

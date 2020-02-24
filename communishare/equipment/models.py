@@ -2,13 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from taggit.managers import TaggableManager
-
-CONDITION_CHOICES = [
-    ('New', 'New'),
-    ('Like new', 'Like new'),
-    ('Used', 'Used'),
-    ('Functional', 'Functional'),
-]
+from accounts.forms import User
+from equipment.constants import CONDITION_CHOICES
 
 
 class ItemImage(models.Model):
@@ -20,6 +15,7 @@ class ItemImage(models.Model):
         if settings.DEBUG:
             return f'http://127.0.0.1:8000{self.img.url}'
         return self.img.url
+
 
 #
 # class ItemCategory(models.Model):
@@ -33,7 +29,8 @@ class Item(models.Model):
     availability = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
     # category = models.ForeignKey(ItemCategory, on_delete=models.SET_NULL, null=True, related_name='items')
-    category=models.CharField(max_length=50, default='something')
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='items')
+    category = models.CharField(max_length=50, default='something')
     tags = TaggableManager()
 
     def __str__(self):

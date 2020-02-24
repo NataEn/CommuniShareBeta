@@ -6,11 +6,19 @@ function Identification(props) {
             <a className="nav-link d-inline-block" href="/accounts/login" tabIndex="-1" aria-disabled="true">Login</a>
         </li>)
     } else {
-        return (<li className="nav-item">
-            <span>{props.user.name}</span>
-            <a className="nav-link d-inline-block" href='' onClick={() => props.signout()} tabIndex="-1"
-               aria-disabled="true">Logout</a>
-        </li>)
+        return (<>
+            <li className="nav-item">
+                <a className="nav-link" href="#">Share Item</a>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link" href="#">Portfolio</a>
+            </li>
+            <li className="nav-item">
+                <span>{props.user.name}</span>
+                <a className="nav-link d-inline-block" href='' onClick={() => props.signout()} tabIndex="-1"
+                   aria-disabled="true">Logout</a>
+            </li>
+        </>)
     }
 }
 
@@ -32,9 +40,7 @@ export default function Header(props) {
                     <li className="nav-item active">
                         <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
                     </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">Share Item</a>
-                    </li>
+
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

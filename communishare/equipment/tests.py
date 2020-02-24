@@ -5,13 +5,6 @@ from django.utils import timezone
 import logging
 
 
-CONDITION_CHOICES = [
-    ('New', 'New'),
-    ('Like new', 'Like new'),
-    ('Used', 'Used'),
-    ('Functional', 'Functional'),
-]
-
 
 class ModelInstancesTests(TestCase):
     def test_create_Item_instance(self):

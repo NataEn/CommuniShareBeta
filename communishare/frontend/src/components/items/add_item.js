@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {CATEGORIES} from "../constants";
 
 export default class AddItem extends Component {
 
@@ -102,7 +103,7 @@ export default class AddItem extends Component {
 
     render() {
         const conditions = ['select a condition ...', 'New', 'Like New', 'Used', 'Functional']
-        const categories = ['select a category ...', 'Home and Interior', 'Home and Garden', 'Family and Kids', 'Motors']
+        const categories = ['select a category ...', ...CATEGORIES]
         return (
             <form onSubmit={this.handleSubmit} name="myForm">
                 <div className="form-group">
@@ -161,6 +162,7 @@ export default class AddItem extends Component {
                            onChange={this.handleChange}/>
                     <label className="form-check-label">Available</label>
                 </div>
+                <div>Add Tags</div>
                 <button type="submit" className="btn btn-primary mb-2" value='submit'>Submit</button>
             </form>
         );

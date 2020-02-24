@@ -2,6 +2,7 @@ import React, {Component, useState, useEffect} from 'react'
 import ReactDOM from 'react-dom'
 import Header from "./layout/header";
 import Dashboard from './items/dashboard';
+import Portfolio from "./users/portfolio";
 import {get_current_user, find_items, logoutUser} from './api_calls'
 
 
@@ -54,6 +55,7 @@ function App() {
     return (
         <>
             <Header user={user} signout={signoutUser}/>
+            <Portfolio user={user}/>
             <div className="container">
                 <Dashboard user={user} foundItems={foundItems} setCriteria={setCriteria}
                            setSearchValue={setSearchValue}/>
