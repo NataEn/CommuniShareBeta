@@ -28,9 +28,9 @@ export function get_last_10_items() {
 
 }
 
-export function find_items(search_param) {
+export function find_items(search_param, ordering = 'date') {
     " this function performs a search according to object passed in search_param"
-    return fetch(`http://localhost:8000/api/search/?q=${search_param}`).then((response) => {
+    return fetch(`http://localhost:8000/api/search/?q=${search_param}&ordering=${ordering}`).then((response) => {
         return response.json();
     })
         .then((myJson) => {

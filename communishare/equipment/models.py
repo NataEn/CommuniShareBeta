@@ -31,7 +31,7 @@ class Item(models.Model):
     # category = models.ForeignKey(ItemCategory, on_delete=models.SET_NULL, null=True, related_name='items')
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='items')
     category = models.CharField(max_length=50, default='something')
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     def __str__(self):
         return self.name

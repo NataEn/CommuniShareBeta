@@ -4,3 +4,5 @@ CONDITION_CHOICES = [
     ('Used', 'Used'),
     ('Functional', 'Functional'),
 ]
+CATEGORIES = ['Home and Garden', 'Home and Interior', 'Motors', 'Family and Kids', 'Sports', 'Health and Beauty',
+              'Fashion']

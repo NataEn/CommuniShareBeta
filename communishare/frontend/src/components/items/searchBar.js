@@ -1,20 +1,23 @@
-import React, {useEffect, useRef,useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
+import {CATEGORIES} from "../constants";
 import {find_items, get_current_user} from "../api_calls";
 
 export default function SearchBar(props) {
     const inputEl = useRef(null);
 
-
     function handelSearch(event, criteria) {
         event.preventDefault()
         console.log(criteria)
-        switch (criteria) {
-            case 'freeSearch':
-                props.setSearchValue(inputEl.current.value)
-                props.setCriteria(criteria)
-                break;
-            case 'Home and Garden':
-                break;}}
+        console.log(event.target.value)
+        if (criteria === 'freeSearch') {
+            props.setSearchValue(inputEl.current.value)
+            props.setCriteria(criteria)
+        }
+        else{
+             props.setSearchValue(criteria)
+            props.setCriteria(criteria)
+        }
+    }
 
     return (<>
 
@@ -28,23 +31,13 @@ export default function SearchBar(props) {
                 </form>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="#">Home and Garden <span
-                                className="sr-only">(current)</span></a>
-                        </li>
-                        <li className="nav-item active">
-                            <a className="nav-link" href="#">Home and Interior <span
-                                className="sr-only">(current)</span></a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Family and Kids</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Motors</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Electronics</a>
-                        </li>
+                        {CATEGORIES.map(category => {
+                                return (<li className="nav-item">
+                                    <a className="nav-link" href="#"
+                                       onClick={(event) => handelSearch(event, category)}>{category}</a>
+                                </li>)
+                            }
+                        )}
 
                     </ul>
 

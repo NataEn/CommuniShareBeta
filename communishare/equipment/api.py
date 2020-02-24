@@ -3,6 +3,8 @@ import json
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Q
 from django.utils import timezone
+
+from .constants import CATEGORIES
 from .models import Item, ItemImage
 from django.http import JsonResponse
 from django.core.files.uploadedfile import UploadedFile
@@ -43,14 +45,17 @@ def post_item(request: WSGIRequest):
 
 
 def get_search_results(request: WSGIRequest):
+    print(request.GET)
     q = request.GET.get('q')
+    ordering = request.GET.get('ordering')
+
     if q == 'all':
         items = Item.objects.all()
     elif q == 'name':
         items = Item.objects.filter(
             Q(name__icontains=q)
         )
-    elif q == 'Home and Garden':
+    elif q in CATEGORIES:
         items = Item.objects.filter(
             Q(category__icontains=q)
         )
@@ -63,4 +68,10 @@ def get_search_results(request: WSGIRequest):
             Q(condition__icontains=q) |
             Q(tags__name__icontains=q)
         )
+    if ordering == 'date':
+        items = items.order_by('created_at')
+        print('in ordering by date at server')
+    elif ordering == 'availability':
+        items = Item.objects.filter(availability=True)
+        print('in ordering by ', items.count())
     return JsonResponse(items_dict(items), safe=False)

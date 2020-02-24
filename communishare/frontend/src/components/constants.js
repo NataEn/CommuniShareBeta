@@ -1,1 +1,1 @@
-export const CATEGORIES=['Home and Garden','Home and Interior','Motors','Family and Kids']
+export const CATEGORIES=['Home and Garden','Home and Interior','Motors','Family and Kids','Sports','Health and Beauty','Fashion']

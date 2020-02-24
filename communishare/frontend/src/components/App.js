@@ -12,7 +12,10 @@ function App() {
     const [searchValue, setSearchValue] = useState("")
     const [loggedIn, setLoggedIn] = useState(false)
     const [criteria, setCriteria] = useState('all')
+    const [searchOrder, setSearchOrder] = useState('date')
+    const [order, setOrder] = useState("")
     const signout = logoutUser
+    console.log("order",order)
 
     useEffect(() => {
         find_items('all').then(resp => {
@@ -27,15 +30,17 @@ function App() {
     }, [])
     useEffect(() => {
         if (criteria === 'all') {
-            find_items("all").then(resp => {
+            console.log("in all statemrnt")
+            find_items("all", searchOrder).then(resp => {
                 setFoundItems(resp)
             });
         } else {
-            find_items(searchValue).then(resp => {
+            console.log("in searchorder statement", searchOrder)
+            find_items(searchValue, searchOrder).then(resp => {
                 setFoundItems(resp)
             })
         }
-    }, [searchValue])
+    }, [searchValue, order])
     useEffect(() => {
         get_current_user().then(resp => {
             setUser(resp)
@@ -58,7 +63,7 @@ function App() {
             <Portfolio user={user}/>
             <div className="container">
                 <Dashboard user={user} foundItems={foundItems} setCriteria={setCriteria}
-                           setSearchValue={setSearchValue}/>
+                           setSearchValue={setSearchValue} setSearchOrder={setSearchOrder} setOrder={setOrder}/>
             </div>
 
         </>)
