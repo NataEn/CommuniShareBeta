@@ -37,7 +37,7 @@ def post_item(request: WSGIRequest):
     print(request.FILES['images'].size)
     dt = timezone.now()
     item = Item(created_at=dt, name=request.POST['name'], condition=request.POST['condition'],
-                description=request.POST['description'], category=request.POST['category'])
+                description=request.POST['description'], category=request.POST['category'], owner=request.user.pk)
     item.save()
     image = ItemImage(item=item, img=uploadedimage)
     image.save()

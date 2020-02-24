@@ -27,11 +27,13 @@ function App() {
 
     useEffect(() => {
         find_items('all').then(resp => {
+            console.log('all items',resp)
             setFoundItems(resp);
         });
         let user = get_current_user().then(resp => {
             console.log('from user',resp)
             setUser(resp)
+            // setUserItems(resp.items)
         });
         if (user.name) {
             setLoggedIn(true)

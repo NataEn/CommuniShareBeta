@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect, JsonResponse
 
+from equipment.models import EncodeModelToJson
 from .models import User
 from rest_framework import viewsets
 from .serializers import UserListSerializer, UserSerializer
@@ -22,7 +23,8 @@ def signed_user(request):
         user['email'] = request.user.email
         user['id'] = request.user.pk
         user['activity'] = request.user.is_active
-    return JsonResponse(user, safe=False)
+        user['items'] = [x for x in request.user.items.all()]
+    return JsonResponse(user, safe=False, encoder=EncodeModelToJson)
 
 
 def signout(request):

@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.utils import timezone
 from taggit.managers import TaggableManager
@@ -35,3 +36,14 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class EncodeModelToJson(DjangoJSONEncoder):
+    def default(self, o):
+        if isinstance(o, Item):
+            item = {}
+            item['image'] = [x.img.url for x in o.images.all()]
+            item['category']=o.category
+            return item
+        else:
+            return super().default(o)
