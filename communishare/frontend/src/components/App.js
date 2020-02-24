@@ -3,7 +3,14 @@ import ReactDOM from 'react-dom'
 import Header from "./layout/header";
 import Dashboard from './items/dashboard';
 import Portfolio from "./users/portfolio";
+import AddItem from "./items/add_item";
 import {get_current_user, find_items, logoutUser} from './api_calls'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 
 function App() {
@@ -15,7 +22,7 @@ function App() {
     const [searchOrder, setSearchOrder] = useState('date')
     const [order, setOrder] = useState("")
     const signout = logoutUser
-    console.log("order",order)
+    console.log("order", order)
 
     useEffect(() => {
         find_items('all').then(resp => {
@@ -58,17 +65,29 @@ function App() {
 
 
     return (
-        <>
-            <Header user={user} signout={signoutUser}/>
-            <Portfolio user={user}/>
-            <div className="container">
-                <Dashboard user={user} foundItems={foundItems} setCriteria={setCriteria}
-                           setSearchValue={setSearchValue} setSearchOrder={setSearchOrder} setOrder={setOrder}/>
-            </div>
-
-        </>)
-
-
+        <Router>
+            <>
+                <Header user={user} signout={signoutUser}/>
+                <Switch>
+                    <Route exact path="/">
+                        <div className="container">
+                            <Dashboard user={user} foundItems={foundItems} setCriteria={setCriteria}
+                                       setSearchValue={setSearchValue} setSearchOrder={setSearchOrder}
+                                       setOrder={setOrder}/>
+                        </div>
+                    </Route>
+                    <Route path='/share-item'>
+                        <AddItem/>
+                    </Route>
+                    <Route path='/portfolio'>
+                        <Portfolio user={user} foundItems={foundItems} setCriteria={setCriteria}
+                                   setSearchValue={setSearchValue} setSearchOrder={setSearchOrder}
+                                   setOrder={setOrder}/>
+                    </Route>
+                </Switch>
+            </>
+        </Router>
+    )
 }
 
 ReactDOM.render(<App/>, document.getElementById('app'))

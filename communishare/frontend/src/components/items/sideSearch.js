@@ -1,13 +1,10 @@
 import React from 'react'
 
 export default function SideSearch(props) {
-
-
     function handelPickOrdering(event) {
         props.setSearchOrder(event.target.value)
         props.setOrder(event.target.value)
     }
-
     return (
         <ul className="nav flex-column">
             <h4>Order by:</h4>
