@@ -68,7 +68,7 @@ export default class AddItem extends Component {
         let valueObj = {}
         valueObj.filename = file.name;
         valueObj['content-type'] = file.type;
-        valueObj.content =reader.result
+        valueObj.content = reader.result
         console.log('in handel event', valueObj)
 
         reader.onload = (event) => {
@@ -163,7 +163,7 @@ export default class AddItem extends Component {
                     <label className="form-check-label">Available</label>
                 </div>
                 <div>Add Tags</div>
-                <button type="submit" className="btn btn-primary mb-2" value='submit'>Submit</button>
+                <a type="submit" className="btn btn-primary mb-2" value='submit' href='/'>Submit</a>
             </form>
         );
     }

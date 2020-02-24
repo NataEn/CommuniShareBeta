@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from .constants import CATEGORIES
 from .models import Item, ItemImage
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.core.files.uploadedfile import UploadedFile
 import logging
 
@@ -41,7 +41,7 @@ def post_item(request: WSGIRequest):
     item.save()
     image = ItemImage(item=item, img=uploadedimage)
     image.save()
-    return JsonResponse({'msg': 'ok'})
+    return HttpResponseRedirect('/')
 
 
 def get_search_results(request: WSGIRequest):
@@ -49,7 +49,7 @@ def get_search_results(request: WSGIRequest):
     q = request.GET.get('q')
     ordering = request.GET.get('ordering')
 
-    if q == 'all':
+    if q == 'all' or q == '':
         items = Item.objects.all()
     elif q == 'name':
         items = Item.objects.filter(
@@ -70,8 +70,6 @@ def get_search_results(request: WSGIRequest):
         )
     if ordering == 'date':
         items = items.order_by('created_at')
-        print('in ordering by date at server')
     elif ordering == 'availability':
         items = Item.objects.filter(availability=True)
-        print('in ordering by ', items.count())
     return JsonResponse(items_dict(items), safe=False)

@@ -15,6 +15,8 @@ import {
 
 function App() {
     const [user, setUser] = useState({})
+    const [userItems, setUserItems] = useState({})
+    const [foundUserItems, setFoundUserItems] = useState([])
     const [foundItems, setFoundItems] = useState([])
     const [searchValue, setSearchValue] = useState("")
     const [loggedIn, setLoggedIn] = useState(false)
@@ -22,13 +24,13 @@ function App() {
     const [searchOrder, setSearchOrder] = useState('date')
     const [order, setOrder] = useState("")
     const signout = logoutUser
-    console.log("order", order)
 
     useEffect(() => {
         find_items('all').then(resp => {
-            setFoundItems(resp)
+            setFoundItems(resp);
         });
         let user = get_current_user().then(resp => {
+            console.log('from user',resp)
             setUser(resp)
         });
         if (user.name) {
@@ -36,13 +38,11 @@ function App() {
         }
     }, [])
     useEffect(() => {
-        if (criteria === 'all') {
-            console.log("in all statemrnt")
+        if (criteria === 'all' || criteria === '') {
             find_items("all", searchOrder).then(resp => {
                 setFoundItems(resp)
             });
         } else {
-            console.log("in searchorder statement", searchOrder)
             find_items(searchValue, searchOrder).then(resp => {
                 setFoundItems(resp)
             })
