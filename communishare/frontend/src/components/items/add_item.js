@@ -60,7 +60,7 @@ export default class AddItem extends Component {
 
         return valid.length === 0
     }
-
+//the handelload is redundent not being sent to server....
     handleLoad = (event) => {
         const reader = new FileReader()
         const file = event.target.files[0]
@@ -68,10 +68,11 @@ export default class AddItem extends Component {
         let valueObj = {}
         valueObj.filename = file.name;
         valueObj['content-type'] = file.type;
-        valueObj.content = reader.result
+
         console.log('in handel event', valueObj)
 
-        reader.onload = (event) => {
+        reader.onload = (e) => {
+            valueObj.content = e.currentTarget.result;
             console.log('in onload');
             this.setState({images: {value: {...valueObj}, message: ''}})
             console.log(this.state.images.value)
@@ -83,8 +84,10 @@ export default class AddItem extends Component {
         if (this.validateForm()) {
             let myForm = document.forms.myForm;
             let data = new FormData(myForm);
-
+            console.log(data)
+            // debugger;
             fetch('http://localhost:8000/api/share_item/', {
+
                 method: 'POST',
                 body: data,
             })
@@ -154,7 +157,12 @@ export default class AddItem extends Component {
                     </label></div>
                 <div className="form-group">
                     <label>Image
-                        <input className="form-control-file" type="file" name='images'
+                        <input className="form-control-file" type="file" name='images1'
+                               onChangeCapture={this.handleLoad}/>
+                    </label></div>
+                <div className="form-group">
+                    <label>Image
+                        <input className="form-control-file" type="file" name='images2'
                                onChangeCapture={this.handleLoad}/>
                     </label></div>
                 <div className="form-check">
@@ -163,7 +171,7 @@ export default class AddItem extends Component {
                     <label className="form-check-label">Available</label>
                 </div>
                 <div>Add Tags</div>
-                <a type="submit" className="btn btn-primary mb-2" value='submit' href='/'>Submit</a>
+                <a type="submit" className="btn btn-primary mb-2" value='submit' onClick={this.handleSubmit}>Submit</a>
             </form>
         );
     }

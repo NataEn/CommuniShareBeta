@@ -33,14 +33,19 @@ def get_last_10_items(request: WSGIRequest):
 
 
 def post_item(request: WSGIRequest):
-    uploadedimage = request.FILES['images']
-    print(request.FILES['images'].size)
+    uploadedimage1 = request.FILES.get('images1')
+    uploadedimage2 = request.FILES.get('images2')
+    # print(request.FILES['images'])
     dt = timezone.now()
     item = Item(created_at=dt, name=request.POST['name'], condition=request.POST['condition'],
-                description=request.POST['description'], category=request.POST['category'], owner=request.user.pk)
+                description=request.POST['description'], category=request.POST['category'], owner=request.user)
     item.save()
-    image = ItemImage(item=item, img=uploadedimage)
-    image.save()
+
+    if uploadedimage1:
+        ItemImage.objects.create(item=item, img=uploadedimage1)
+    if uploadedimage2:
+        ItemImage.objects.create(item=item, img=uploadedimage2)
+
     return HttpResponseRedirect('/')
 
 

@@ -3,8 +3,21 @@
     height: 10%;
 }
 
+img.item-image {
+    height: 10%;
+}
+
+img.portfolio-image {
+    width: 30% !important;
+    height: 30% !important;
+}
+
+td.itemImage {
+    width: max-content;
+}
+
 div div.no_image {
     background-color: darkgray;
- height: 25%;
+    height: 25%;
 
 }

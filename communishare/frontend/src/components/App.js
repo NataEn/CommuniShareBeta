@@ -11,11 +11,12 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import ItemPortfolio from "./items/itemPortfolio";
 
 
 function App() {
     const [user, setUser] = useState({})
-    const [userItems, setUserItems] = useState({})
+    const [userItems, setUserItems] = useState([])
     const [foundUserItems, setFoundUserItems] = useState([])
     const [foundItems, setFoundItems] = useState([])
     const [searchValue, setSearchValue] = useState("")
@@ -27,13 +28,12 @@ function App() {
 
     useEffect(() => {
         find_items('all').then(resp => {
-            console.log('all items',resp)
+            console.log('all items', resp)
             setFoundItems(resp);
         });
         let user = get_current_user().then(resp => {
-            console.log('from user',resp)
+            console.log('from user', resp)
             setUser(resp)
-            // setUserItems(resp.items)
         });
         if (user.name) {
             setLoggedIn(true)
@@ -53,6 +53,7 @@ function App() {
     useEffect(() => {
         get_current_user().then(resp => {
             setUser(resp)
+            setUserItems(resp.items)
         });
     }, [loggedIn])
 
@@ -82,10 +83,11 @@ function App() {
                         <AddItem/>
                     </Route>
                     <Route path='/portfolio'>
-                        <Portfolio user={user} foundItems={foundItems} setCriteria={setCriteria}
+                        <Portfolio user={user} foundItems={userItems} setCriteria={setCriteria}
                                    setSearchValue={setSearchValue} setSearchOrder={setSearchOrder}
                                    setOrder={setOrder}/>
                     </Route>
+                    <Route exact path="/portfolio/:item" children={<ItemPortfolio />} />
                 </Switch>
             </>
         </Router>
