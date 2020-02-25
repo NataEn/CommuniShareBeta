@@ -5,8 +5,19 @@ from django.utils import timezone
 from taggit.managers import TaggableManager
 from equipment.constants import CONDITION_CHOICES
 from django.contrib.auth import get_user_model
+import datetime
 
 User = get_user_model()
+
+
+# class ItemAvailability(models.Model):
+#     item = models.ForeignKey('equipment.Item', on_delete=models.CASCADE, related_name='availability')
+#     start_date = models.DateTimeField(null=False)
+#     end_date = models.DateTimeField(null=False)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+#
+#     class Meta:
+#         unique_together = [['end_date', 'start_date']]
 
 
 class ItemImage(models.Model):

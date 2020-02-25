@@ -16,10 +16,10 @@ function Identification(props) {
             <li className="nav-item">
                 <Link className="nav-link" to="/portfolio"><span>{props.user.name}</span></Link>
             </li>
-            <Link className="nav-item" to='/'>
+            <li className="nav-item">
                 <a className="nav-link d-inline-block" href='/' onClick={() => props.signout()} tabIndex="-1"
                    aria-disabled="true">Logout</a>
-            </Link>
+            </li>
         </>)
     }
 }

@@ -32,7 +32,7 @@ export default function SearchBar(props) {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         {CATEGORIES.map(category => {
-                                return (<li className="nav-item">
+                                return (<li className="nav-item" key={category}>
                                     <a className="nav-link" href="#"
                                        onClick={(event) => handelSearch(event, category)}>{category}</a>
                                 </li>)

@@ -3,6 +3,7 @@ const allItems = 'http://localhost:8000/api/all_items/'
 const current_user = 'http://localhost:8000/accounts/current_user'
 const signout = 'http://localhost:8000/accounts/signout'
 const last_10_items = 'http://localhost:8000/api/last_10/'
+const item = 'http://localhost:8000/api/item/'
 
 // in the brouser: http://localhost:8000/
 export function get_all_items() {
@@ -14,6 +15,17 @@ export function get_all_items() {
             console.log(myJson);
             return myJson
         }).catch(error => console.log('all items failed : ' + error.message));
+
+}
+
+export function get_item(search_param) {
+    " this function fetches an item according to request"
+    return fetch(`http://localhost:8000/api/item/?q=${search_param}`).then((response) => {
+        return response.json();
+    })
+        .then((myJson) => {
+            return myJson
+        }).catch(error => console.log('Failed to find query: ' + error.message));
 
 }
 

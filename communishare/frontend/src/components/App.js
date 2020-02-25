@@ -4,7 +4,7 @@ import Header from "./layout/header";
 import Dashboard from './items/dashboard';
 import Portfolio from "./users/portfolio";
 import AddItem from "./items/add_item";
-import {get_current_user, find_items, logoutUser} from './api_calls'
+import {get_current_user, find_items, logoutUser, get_item} from './api_calls'
 import {
     BrowserRouter as Router,
     Switch,
@@ -28,7 +28,6 @@ function App() {
 
     useEffect(() => {
         find_items('all').then(resp => {
-            console.log('all items', resp)
             setFoundItems(resp);
         });
         let user = get_current_user().then(resp => {
@@ -66,7 +65,6 @@ function App() {
         setLoggedIn(false)
     }
 
-
     return (
         <Router>
             <>
@@ -87,7 +85,8 @@ function App() {
                                    setSearchValue={setSearchValue} setSearchOrder={setSearchOrder}
                                    setOrder={setOrder}/>
                     </Route>
-                    <Route exact path="/portfolio/:item" children={<ItemPortfolio />} />
+                    <Route path="/items/:id"
+                           exact component={ItemPortfolio}/>
                 </Switch>
             </>
         </Router>

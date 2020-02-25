@@ -14,6 +14,7 @@ import logging
 def items_dict(items):
     return [
         {
+            'id': item.pk,
             'name': item.name,
             'condition': item.condition,
             'description': item.description,
@@ -47,6 +48,19 @@ def post_item(request: WSGIRequest):
         ItemImage.objects.create(item=item, img=uploadedimage2)
 
     return HttpResponseRedirect('/')
+
+
+def get_single_item(request: WSGIRequest):
+    q = request.GET.get('q')
+    item = Item.objects.get(pk=int(q))
+    item = {
+        'id': item.pk,
+        'name': item.name,
+        'condition': item.condition,
+        'description': item.description,
+        'images': [i.full_url for i in item.images.all()]
+    }
+    return JsonResponse(item, safe=False)
 
 
 def get_search_results(request: WSGIRequest):

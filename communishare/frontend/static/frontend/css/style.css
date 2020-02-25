@@ -21,3 +21,8 @@ div div.no_image {
     height: 25%;
 
 }
+
+div.emptyCarusel {
+    width: 10em;
+    background-color: #0f7864;
+}
