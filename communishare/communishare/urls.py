@@ -14,19 +14,22 @@ from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.conf.urls import url
 
-from accounts.api import signed_user, signout
+from accounts.api import signed_user, signout, get_user_messages
 from accounts.views import signup
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from equipment.api import get_items, post_item, get_last_10_items, get_search_results, get_single_item
+from equipment.api import get_items, post_item, get_last_10_items, get_search_results, get_single_item,request_item
 
 urlpatterns = [
     path("", include('frontend.urls')),
     path("api/all_items/", get_items),
+
     path("api/share_item/", csrf_exempt(post_item)),
     path('api/last_10/', get_last_10_items),
     path('api/item/', get_single_item),
     path('api/search/', get_search_results),
+    path('api/request_item/', request_item),
+    path('api/messages/', get_user_messages),
     # path('api/share-item/', equipment),#this is a django form path
     # path("api/items", EquipmentViewSet),#this is a django form path
     path("equipment/", include('equipment.urls')),

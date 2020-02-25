@@ -12,6 +12,11 @@ class ItemListView(generic.ListView):
     model = Item
     template_name = 'equipment/item_list.html'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        messages.info(self.request, 'HELLO WORLD')
+        context = super().get_context_data(**kwargs)
+        return context
+
 
 class ItemDetailView(generic.DetailView):
     model = Item

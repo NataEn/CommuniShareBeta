@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.contrib.messages import get_messages
 from django.http import HttpResponseRedirect, JsonResponse
 
 from equipment.models import EncodeModelToJson
@@ -16,6 +18,13 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+def get_user_messages(request):
+    storage = get_messages(request)
+    messages.info(request, 'HELLO WORLD')
+    data = []
+    for message in storage:
+        data.append(message.message)
+    return JsonResponse(data, safe=False)
 
 def signed_user(request):
     user = {'name': request.user.username}

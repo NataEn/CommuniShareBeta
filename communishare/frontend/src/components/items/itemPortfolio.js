@@ -1,16 +1,48 @@
 import React, {useState, useEffect} from 'react'
 import {Link, useParams} from 'react-router-dom'
-import {get_item} from '../api_calls';
+import {get_item, request_item} from '../api_calls';
 
 export default function ItemPortfolio(props) {
     const {itemId} = props.location.state
     const [item, setItem] = useState({})
+    const [start, setStart] = useState(0)
+    const [end, setEnd] = useState(0)
 
     useEffect(() => {
         get_item(itemId).then(resp => {
             setItem(resp)
         });
     }, []);
+
+    function convertToTimestamp(date) {
+        console.log(date)
+        let myDate = date.split("-");
+        let newDate = myDate[0] + "," + myDate[1] + "," + myDate[2];
+        return new Date(newDate).getTime();
+
+    }
+
+    function handleChange(event) {
+        if (event.target.name === 'start') {
+            const date = convertToTimestamp(event.target.value)
+            console.log('start', date)
+            setStart(date)
+        } else if (event.target.name === 'end') {
+            const date = convertToTimestamp(event.target.value)
+            console.log('end', date)
+            setEnd(date)
+        }
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault()
+        if (true) {
+            const resp = request_item(item.id, start, end)
+            console.log(resp)
+        }
+    }
+
+
     return (
         <div>
             Item Portfolio page
@@ -36,16 +68,13 @@ export default function ItemPortfolio(props) {
                 </a>
             </div>
             <div>message to borrow</div>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                console.log(e);
-            }}>
-                <label htmlFor="start">Start date:<input type='date' id='start'/></label>
-                <label htmlFor="end">End date:<input type='date' id='end'/></label>
+            <form id='scheduleForm' onSubmit={handleSubmit}>
+                <label htmlFor="start">Start date:<input type='date' name='start' onChange={handleChange}/></label>
+                <label htmlFor="end">End date:<input type='date' name='end' onChange={handleChange}/></label>
                 <button type="submit" className="btn btn-success" value='submit'>Request Item</button>
-            </form>
+            </form
+            >
             <button type="button" className="btn btn-info">Save for Later</button>
-            {/*<div>{newProp}</div>*/}
         </div>
     )
 

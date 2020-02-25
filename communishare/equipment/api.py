@@ -19,6 +19,7 @@ def items_dict(items):
             'condition': item.condition,
             'description': item.description,
             'images': [i.full_url for i in item.images.all()],
+            'schedule': [(i.start_date, i.end_date) for i in item.schedule.all()]
         } for item in items
     ]
 
@@ -31,6 +32,22 @@ def get_items(request: WSGIRequest):
 def get_last_10_items(request: WSGIRequest):
     items = Item.objects.order_by('created_at')[:10]
     return JsonResponse(items_dict(items), safe=False)
+
+
+def request_item(request: WSGIRequest):
+    q = request.GET.get('q')
+    item = Item.objects.get(pk=int(q))
+    start = request.GET.get('start')
+    end = request.GET.get('end')
+    item_schedule = [(i.start_date, i.end_date) for i in item.schedule.all()]
+
+    for item_start, item_end in item_schedule:
+        time_range = range(item_start, item_end)
+        if start not in time_range and end not in time_range:
+            # send notification to owner so he could grant permission to user and set the item unavailable
+            return JsonResponse({'msg': 'OK'}, safe=False)
+        else:
+            return JsonResponse({'msg': 'NO'}, safe=False)
 
 
 def post_item(request: WSGIRequest):
@@ -58,7 +75,8 @@ def get_single_item(request: WSGIRequest):
         'name': item.name,
         'condition': item.condition,
         'description': item.description,
-        'images': [i.full_url for i in item.images.all()]
+        'images': [i.full_url for i in item.images.all()],
+        'schedule': [i.full_url for i in item.schedule.all()]
     }
     return JsonResponse(item, safe=False)
 

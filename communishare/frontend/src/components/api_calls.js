@@ -18,6 +18,16 @@ export function get_all_items() {
 
 }
 
+export function request_item(item, start, end) {
+
+    return fetch(`http://localhost:8000/api/request_item/?q=${item}&start=${start}&end=${end}`).then((response) => {
+        return response.json();
+    })
+        .then((myJson) => {
+            return myJson
+        }).catch(error => console.log('Failed to find query: ' + error.message));
+}
+
 export function get_item(search_param) {
     " this function fetches an item according to request"
     return fetch(`http://localhost:8000/api/item/?q=${search_param}`).then((response) => {

@@ -9,15 +9,20 @@ import datetime
 
 User = get_user_model()
 
+AVAILABLE = 'available'
+REQUESTED = 'requested'
+BORROWED = 'borrowed'
 
-# class ItemAvailability(models.Model):
-#     item = models.ForeignKey('equipment.Item', on_delete=models.CASCADE, related_name='availability')
-#     start_date = models.DateTimeField(null=False)
-#     end_date = models.DateTimeField(null=False)
-#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
-#
-#     class Meta:
-#         unique_together = [['end_date', 'start_date']]
+
+class ItemAvailability(models.Model):
+    item = models.ForeignKey('equipment.Item', on_delete=models.CASCADE, related_name='schedule')
+    start_date = models.DateTimeField(null=True)
+    end_date = models.DateTimeField(null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    status = models.CharField(null=False, default=AVAILABLE, max_length=20, choices=[(AVAILABLE, AVAILABLE), (REQUESTED, REQUESTED), (BORROWED, BORROWED)])
+
+    class Meta:
+        unique_together = [['end_date', 'start_date', 'item']]
 
 
 class ItemImage(models.Model):
