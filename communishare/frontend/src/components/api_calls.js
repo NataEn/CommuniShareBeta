@@ -18,14 +18,27 @@ export function get_all_items() {
 
 }
 
-export function request_item(item, start, end) {
+export function get_item_schedual(item, start, end) {
+    debugger;
+    return fetch(`http://localhost:8000/api/get_item_schedual/?q=${item}&start=${start}&end=${end}`).then(response => response.json()).then(myJson => {
+        console.log(myJson);
+        return myJson
+    }).catch(error => console.log('Failed to find query: ' + error.message));
+}
 
-    return fetch(`http://localhost:8000/api/request_item/?q=${item}&start=${start}&end=${end}`).then((response) => {
-        return response.json();
+export function set_item_schedual(data) {
+    return fetch(`http://localhost:8000/api/post_item_schedual/`, {
+        method: 'POST',
+        body: data,
     })
-        .then((myJson) => {
-            return myJson
-        }).catch(error => console.log('Failed to find query: ' + error.message));
+        .then(resp => resp.json())
+        .then(resp => {
+            console.log('in fetch', resp);
+        })
+        .catch(error => {
+            console.error(error);
+        })
+
 }
 
 export function get_item(search_param) {

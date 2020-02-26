@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {CATEGORIES} from "../constants";
-import {find_items, get_current_user} from "../api_calls";
+
 
 export default function SearchBar(props) {
     const inputEl = useRef(null);

@@ -4,7 +4,7 @@ import Header from "./layout/header";
 import Dashboard from './items/dashboard';
 import Portfolio from "./users/portfolio";
 import AddItem from "./items/add_item";
-import {get_current_user, find_items, logoutUser, get_item} from './api_calls'
+import {get_current_user, find_items, logoutUser} from './api_calls'
 import {
     BrowserRouter as Router,
     Switch,

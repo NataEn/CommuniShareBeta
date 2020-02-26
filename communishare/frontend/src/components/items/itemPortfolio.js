@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Link, useParams} from 'react-router-dom'
-import {get_item, request_item} from '../api_calls';
+import {get_item, get_item_schedual} from '../api_calls';
 
 export default function ItemPortfolio(props) {
     const {itemId} = props.location.state
@@ -10,6 +10,7 @@ export default function ItemPortfolio(props) {
 
     useEffect(() => {
         get_item(itemId).then(resp => {
+            console.log(resp)
             setItem(resp)
         });
     }, []);
@@ -18,7 +19,7 @@ export default function ItemPortfolio(props) {
         console.log(date)
         let myDate = date.split("-");
         let newDate = myDate[0] + "," + myDate[1] + "," + myDate[2];
-        return new Date(newDate).getTime();
+        return new Date(newDate).getTime() / 1000;
 
     }
 
@@ -37,7 +38,8 @@ export default function ItemPortfolio(props) {
     function handleSubmit(event) {
         event.preventDefault()
         if (true) {
-            const resp = request_item(item.id, start, end)
+
+            const resp = get_item_schedual(item.id, start, end)
             console.log(resp)
         }
     }

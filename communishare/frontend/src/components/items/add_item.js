@@ -85,7 +85,7 @@ export default class AddItem extends Component {
             let myForm = document.forms.myForm;
             let data = new FormData(myForm);
             console.log(data)
-            // debugger;
+
             fetch('http://localhost:8000/api/share_item/', {
 
                 method: 'POST',
