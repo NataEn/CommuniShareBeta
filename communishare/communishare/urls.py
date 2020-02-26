@@ -18,12 +18,13 @@ from accounts.api import signed_user, signout, get_user_messages
 from accounts.views import signup
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from equipment.api import get_items, post_item, get_last_10_items, get_search_results, get_single_item,request_item
+from equipment.api import get_items, post_item, get_last_10_items, get_search_results, get_single_item, request_item
+from frontend.views import index
 
 urlpatterns = [
-    path("", include('frontend.urls')),
-    path("api/all_items/", get_items),
 
+    path("/share-item", index),
+    path("api/all_items/", get_items),
     path("api/share_item/", csrf_exempt(post_item)),
     path('api/last_10/', get_last_10_items),
     path('api/item/', get_single_item),
@@ -39,6 +40,7 @@ urlpatterns = [
     path('accounts/current_user', csrf_exempt(signed_user)),
     path('accounts/signout', csrf_exempt(signout)),
     path('accounts/signup/', signup, name='signup'),
+    path("", include('frontend.urls')),
 
 ]
 urlpatterns += staticfiles_urlpatterns()
